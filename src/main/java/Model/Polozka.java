@@ -1,7 +1,9 @@
 package Model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +20,16 @@ public class Polozka extends Produkty implements IPolozka {
     private List<Pridavek> pridavky = new ArrayList<>();
     private boolean isActive;
 
-    @Override
+    public Polozka(int id) {
+       super.setId(id);
+        this.load();
+    }
     public int getId() {
 
-        return super.getId();
+        return this.id;
     }
 
-    @Override
+    
     public Polozka setId(int id) {
 
         this.id = id;
@@ -32,7 +37,7 @@ public class Polozka extends Produkty implements IPolozka {
     }
 
     public Double getCena() {
-        return cena;
+        return this.cena;
     }
 
     public Polozka setCena(Double cena) {
@@ -41,7 +46,7 @@ public class Polozka extends Produkty implements IPolozka {
     }
 
     public String getDruh() {
-        return druh;
+        return this.druh;
     }
 
     public Polozka setDruh(String druh) {
@@ -50,7 +55,7 @@ public class Polozka extends Produkty implements IPolozka {
     }
 
     public String getNazev() {
-        return nazev;
+        return this.nazev;
     }
 
     public Polozka setNazev(String nazev) {
@@ -65,7 +70,7 @@ public class Polozka extends Produkty implements IPolozka {
     }
 
     public boolean isActive() {
-        return isActive;
+        return this.isActive;
     }
 
     public Polozka setPridavky(List<Pridavek> pridavky) {
@@ -79,7 +84,23 @@ public class Polozka extends Produkty implements IPolozka {
 
     @Override
     public void load() {
-        // TODO Auto-generated method stub
+        if (this.id <= 0)
+        throw new IllegalStateException("Není definované ID");
+
+    try (Connection connection = Db.get().getConnection();
+            PreparedStatement stmt = connection
+                    .prepareStatement("SELECT polozky.id, polozky.nazev, polozky.cena, polozky.druh, polozky.isActive  FROM polozky WHERE id = ?")) {
+        stmt.setInt(1, this.id);
+        try (ResultSet result = stmt.executeQuery()) {
+            if (result.next()) {
+                this.setNazev(result.getString("nazev")).setCena(result.getDouble("cena")).setDruh(result.getString("druh")).setActive(result.getBoolean("isActive"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } catch (ClassNotFoundException | SQLException e) {
+        e.printStackTrace();
+    }
 
     }
 
@@ -90,18 +111,19 @@ public class Polozka extends Produkty implements IPolozka {
                 Statement polozkyStmt = conn.createStatement();
                 ResultSet polozkyRs = polozkyStmt.executeQuery(
                         "SELECT polozky.ID, polozky.nazev, polozky.cena, polozky.druh,polozky.isActive FROM polozky WHERE polozky.isActive = 1")) {
-            ;
+            
 
             while (polozkyRs.next()) {
-                Polozka polozka = new Polozka().setId(polozkyRs.getInt("ID")).setNazev(polozkyRs.getString("nazev"))
-                        .setCena(polozkyRs.getDouble("cena")).setDruh(polozkyRs.getString("druh"))
-                        .setActive(polozkyRs.getBoolean("isActive"));
-                polozky.add(polozka);
+                System.out.println(polozkyRs.getString("nazev"));
+                polozky.add(new Polozka().setId(polozkyRs.getInt("ID")).setNazev(polozkyRs.getString("nazev"))
+                .setCena(polozkyRs.getDouble("cena")).setDruh(polozkyRs.getString("druh"))
+                .setActive(polozkyRs.getBoolean("isActive")));
             }
 
-        } catch (Exception e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            return null;
+            System.out.println("lol");
+            polozky = null;
         }
         return polozky;
     }

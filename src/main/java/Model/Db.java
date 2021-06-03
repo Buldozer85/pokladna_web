@@ -3,7 +3,6 @@ package Model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import com.mysql.jdbc.Driver;
 
 public class Db {
     private static Db instance;
@@ -16,7 +15,7 @@ public class Db {
 
     }
 
-    private String cs = "jdbc:mysql://localhost:3306/jskola", user = "root", pass = "";
+    private String cs = "jdbc:mysql://localhost:3306/pokladna", user = "root", pass = "";
 
     private Db() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -25,7 +24,7 @@ public class Db {
     private final String typDB = "mysql";
     private final String serverName = "localhost";
     private final int port = 3306;
-    private final String defaultDB = "jskola";
+    private final String defaultDB = "pokladna";
     
 
     public Connection getConnection() throws SQLException {

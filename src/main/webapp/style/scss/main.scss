@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+$pismo: 'Ubuntu',
+sans-serif;
+html {
+    font-family: $pismo;
+}
+
+body {
+    margin: 0;
+    h1:first-child {
+        margin: auto;
+        text-align: center;
+    }
+    div:nth-child(1) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        article {
+            padding: 5px 22px;
+        }
+    }
+}
