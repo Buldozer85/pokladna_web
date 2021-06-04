@@ -21,8 +21,11 @@ public class Polozka extends Produkty implements IPolozka {
     private boolean isActive;
 
     public Polozka(int id) {
-       super.setId(id);
+      this.id = id;
         this.load();
+    }
+    public Polozka() {
+        super();
     }
     public int getId() {
 

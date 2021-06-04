@@ -25,13 +25,13 @@
                                     <%= p.getCena()%> Kč</h2>
 
 
-                                <a href='?<%=request.getAttribute("ID_polozka")%>&ID_pridavek=<%= p.getId()%>' '>Přidat</a>
+                                <a href='?ID_polozka=<%=request.getAttribute("ID_polozka")%>&ID_pridavek=<%= p.getId()%>' '>Přidat</a>
                             </article>
                             <%}%>
                     </div>
 
                     <div>
-<a href="?OK=1"></a>
+<a href="/dvorinald/objednavka">OK</a>
                     </div>
 
                 </div>

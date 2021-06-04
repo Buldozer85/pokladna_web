@@ -14,7 +14,7 @@
     <body>
 
         <h1>Vítejte v Dvořinaldu a dceřiné společnosti Sh0mp burgers s.r.o</h1>
-        <a href="dvorinald/objednavka">Nová objednávka</a>
+        <a href="/dvorinald/objednavka">Nová objednávka</a>
 
 
     </body>

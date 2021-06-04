@@ -1,7 +1,9 @@
 package Model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,14 @@ public class Pridavek extends Produkty implements IPridavek {
     private String nazev;
     private Double cena;
     private boolean isActive;
+
+    public Pridavek() {
+        super();
+    }
+    public Pridavek(int id) {
+        this.id = id;
+        this.load();
+    }
 
     @Override
     public int getId() {
@@ -52,7 +62,21 @@ public class Pridavek extends Produkty implements IPridavek {
 
     @Override
     public void load() {
-        // TODO Auto-generated method stub
+        if (this.id <= 0)
+        throw new IllegalStateException("Není definované ID");
+
+    try (Connection connection = Db.get().getConnection();
+            PreparedStatement stmt = connection
+                    .prepareStatement("SELECT pridavky.ID, pridavky.nazev, pridavky.cena, pridavky.isActive  FROM pridavky WHERE ID = ?")) {
+        stmt.setInt(1, this.id);
+        try (ResultSet result = stmt.executeQuery()) {
+            if (result.next()) {
+                this.setNazev(result.getString("nazev")).setCena(result.getDouble("cena")).setActive(result.getBoolean("isActive"));
+            }
+        } 
+    } catch (ClassNotFoundException | SQLException e) {
+        e.printStackTrace();
+    }
         
     }
 
