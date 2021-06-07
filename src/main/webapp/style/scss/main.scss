@@ -27,4 +27,17 @@ body {
             padding: 5px 22px;
         }
     }
+    a {
+        margin-top: 20px;
+        text-decoration: none;
+        background-color: black;
+        color: white;
+        padding: 10px;
+    }
+    #objednavka {
+        border: 1px solid black;
+        padding: 20px;
+        min-height: 450px;
+        min-width: 400px;
+    }
 }

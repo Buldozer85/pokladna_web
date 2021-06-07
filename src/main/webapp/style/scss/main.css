@@ -49,4 +49,19 @@ body div:nth-child(1) {
 body div:nth-child(1) article {
   padding: 5px 22px;
 }
+
+body a {
+  margin-top: 20px;
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
+
+body #objednavka {
+  border: 1px solid black;
+  padding: 20px;
+  min-height: 450px;
+  min-width: 400px;
+}
 /*# sourceMappingURL=main.css.map */

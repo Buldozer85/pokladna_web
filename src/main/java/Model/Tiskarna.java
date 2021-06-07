@@ -21,7 +21,7 @@ public class Tiskarna {
     }
 
     public void Tiskni(Objednavka uctenka) {
-        try (FileWriter fw = new FileWriter("uctenka.txt")) {
+        try (FileWriter fw = new FileWriter("C:\\Users\\Tomas\\Desktop\\dvorinald\\uctenka.txt")) {
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = format.parse(uctenka.getCasObjednavky());
@@ -41,10 +41,11 @@ public class Tiskarna {
                 }
                 fw.write("\n");
             }
-            fw.write("\n Celková cena: " + uctenka.getCena().toString());
+            fw.write("\n Celková cena: " + uctenka.getCena().toString() + " Kč");
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+          
 
         }
     }

@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 import Interfaces.IPolozka;
 
 public class Polozka extends Produkty implements IPolozka {
@@ -21,18 +19,19 @@ public class Polozka extends Produkty implements IPolozka {
     private boolean isActive;
 
     public Polozka(int id) {
-      this.id = id;
+        this.id = id;
         this.load();
     }
+
     public Polozka() {
         super();
     }
+
     public int getId() {
 
         return this.id;
     }
 
-    
     public Polozka setId(int id) {
 
         this.id = id;
@@ -88,47 +87,52 @@ public class Polozka extends Produkty implements IPolozka {
     @Override
     public void load() {
         if (this.id <= 0)
-        throw new IllegalStateException("Není definované ID");
+            throw new IllegalStateException("Není definované ID");
 
-    try (Connection connection = Db.get().getConnection();
-            PreparedStatement stmt = connection
-                    .prepareStatement("SELECT polozky.id, polozky.nazev, polozky.cena, polozky.druh, polozky.isActive  FROM polozky WHERE id = ?")) {
-        stmt.setInt(1, this.id);
-        try (ResultSet result = stmt.executeQuery()) {
-            if (result.next()) {
-                this.setNazev(result.getString("nazev")).setCena(result.getDouble("cena")).setDruh(result.getString("druh")).setActive(result.getBoolean("isActive"));
+        try (Connection connection = Db.get().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(
+                        "SELECT polozky.id, polozky.nazev, polozky.cena, polozky.druh, polozky.isActive  FROM polozky WHERE id = ?")) {
+            stmt.setInt(1, this.id);
+            try (ResultSet result = stmt.executeQuery()) {
+                if (result.next()) {
+                    this.setNazev(result.getString("nazev")).setCena(result.getDouble("cena"))
+                            .setDruh(result.getString("druh")).setActive(result.getBoolean("isActive"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-    } catch (ClassNotFoundException | SQLException e) {
-        e.printStackTrace();
-    }
 
     }
 
-    
     public static List<Polozka> getAll() {
         List<Polozka> polozky = new ArrayList<>();
         try (Connection conn = Db.get().getConnection();
                 Statement polozkyStmt = conn.createStatement();
                 ResultSet polozkyRs = polozkyStmt.executeQuery(
                         "SELECT polozky.ID, polozky.nazev, polozky.cena, polozky.druh,polozky.isActive FROM polozky WHERE polozky.isActive = 1")) {
-            
 
             while (polozkyRs.next()) {
                 System.out.println(polozkyRs.getString("nazev"));
                 polozky.add(new Polozka().setId(polozkyRs.getInt("ID")).setNazev(polozkyRs.getString("nazev"))
-                .setCena(polozkyRs.getDouble("cena")).setDruh(polozkyRs.getString("druh"))
-                .setActive(polozkyRs.getBoolean("isActive")));
+                        .setCena(polozkyRs.getDouble("cena")).setDruh(polozkyRs.getString("druh"))
+                        .setActive(polozkyRs.getBoolean("isActive")));
             }
 
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            System.out.println("lol");
+            
             polozky = null;
         }
         return polozky;
+    }
+
+    @Override
+    public boolean save() {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }

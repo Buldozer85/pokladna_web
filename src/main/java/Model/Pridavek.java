@@ -98,5 +98,10 @@ public class Pridavek extends Produkty implements IPridavek {
         }
         return pridavky;
     }
+    @Override
+    public boolean save() {
+        // TODO Auto-generated method stub
+        return false;
+    }
     
 }

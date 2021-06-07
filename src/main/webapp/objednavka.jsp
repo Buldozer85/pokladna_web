@@ -34,11 +34,12 @@
                                     <%}%>
                             </div>
 
-                            <div>
+                            <div id="objednavka">
                                 <h1>Objednávka</h1>
                                 <% if ((Boolean)request.getAttribute("prazdna") == true){%>
 
                                     <%} else{
+                                        int index = 0;
                                             for (Polozka pol : (List<Polozka>)request.getAttribute("objednavka")){%>
                                         <h3>
                                             <%= pol.getNazev()%>
@@ -47,17 +48,26 @@
                                             <%= pol.getCena()%> Kč
                                         </h3>
 
-                                        <% for (Pridavek prid : pol.getPridavky()){ %>
+                                        <% for (Pridavek prid : pol.getPridavky()){ 
+                                            int indexPridavku = 0;
+                                            %>
                                             <h4>
                                                 +
                                                 <%=prid.getNazev()%>
                                                     <%=prid.getCena()%> Kč
 
                                             </h4>
-                                            <%}%>
-                                                <a href="">Odstranit</a>
-                                                <%}%>
+                                            <a href="?odPolozky=<%=index%>&pridavek=<%=indexPridavku%>">Odstranit přídavek</a>
+                                            <% indexPridavku++;}%>
+                                                <a href="?odstran=<%=index%>">Odstranit</a>
+                                                <a href="?kPolozce=<%=index%>">Přidat přídavek</a>
+
+                                                <% index++;
+                                            }%>
                                                     <%}%>
+                                                        <h4>Celková cena:
+                                                            <%=request.getAttribute("cena")%>&nbsp;Kč
+                                                        </h4>
                                                         <a href="?dokoncit=1">Dokončit</a>
                             </div>
 
