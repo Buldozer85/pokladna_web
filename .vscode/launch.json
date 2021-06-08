@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Administrator",
+            "request": "launch",
+            "mainClass": "administrace.Administrator",
+            "projectName": "dvorinald"
+        },
+        {
+            "type": "java",
             "name": "Launch Hash",
             "request": "launch",
             "mainClass": "servlets.Hash",

@@ -128,11 +128,105 @@ public class Polozka extends Produkty implements IPolozka {
         }
         return polozky;
     }
+    public static List<Polozka> getAllAdmin() {
+        List<Polozka> polozky = new ArrayList<>();
+        try (Connection conn = Db.get().getConnection();
+                Statement polozkyStmt = conn.createStatement();
+                ResultSet polozkyRs = polozkyStmt.executeQuery(
+                        "SELECT polozky.ID, polozky.nazev, polozky.cena, polozky.druh,polozky.isActive FROM polozky")) {
+
+            while (polozkyRs.next()) {
+                System.out.println(polozkyRs.getString("nazev"));
+                polozky.add(new Polozka().setId(polozkyRs.getInt("ID")).setNazev(polozkyRs.getString("nazev"))
+                        .setCena(polozkyRs.getDouble("cena")).setDruh(polozkyRs.getString("druh"))
+                        .setActive(polozkyRs.getBoolean("isActive")));
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+            
+            polozky = null;
+        }
+        return polozky;
+    }
 
     @Override
     public boolean save() {
-        // TODO Auto-generated method stub
-        return false;
+    if(this.id <= 0){
+        try (Connection conn = Db.get().getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (java.sql.PreparedStatement stmt = conn.prepareStatement(
+                    "INSERT INTO polozky (nazev, cena, druh) VALUES (?,?,?)",
+                    PreparedStatement.RETURN_GENERATED_KEYS)) {
+                stmt.setString(1, this.getNazev());
+                stmt.setDouble(2, this.getCena());
+                stmt.setObject(3, this.getDruh());
+
+                if (stmt.executeUpdate() != 1) {
+                    throw new Exception("Nepodaril se zapis polozky");
+                }
+
+                ResultSet rs = stmt.getGeneratedKeys();
+
+                if (rs.next()) {
+                    this.setId(rs.getInt(1));
+                }
+                rs.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                conn.rollback();
+                throw e;
+            }
+            conn.commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }else{
+        try (Connection conn = Db.get().getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "UPDATE polozky SET polozky.isActive = ?, polozky.nazev = ?, polozky.cena = ?, polozky.druh = ? WHERE polozky.ID = ?")) {
+                int pom;
+                if (this.isActive())
+                    pom = 1;
+                else
+                    pom = 0;
+                stmt.setInt(1, pom);
+                stmt.setString(2, this.getNazev());
+                stmt.setDouble(3, this.getCena());
+                stmt.setString(4, this.getDruh());
+                stmt.setInt(5, this.getId());
+               
+
+                
+               
+                if (stmt.executeUpdate() != 1) {
+                    throw new Exception("Nepodařilo se upravit polozku");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                conn.rollback();
+                System.out.println(e.getMessage());
+                throw e;
+            }
+            conn.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+
+    }
+
+        
     }
 
 }

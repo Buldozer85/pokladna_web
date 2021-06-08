@@ -98,10 +98,94 @@ public class Pridavek extends Produkty implements IPridavek {
         }
         return pridavky;
     }
+    public static List<Pridavek> getAllAdministrace(){
+        List<Pridavek> pridavky = new ArrayList<>();
+        try (Connection conn = Db.get().getConnection()) {
+            Statement pridavkyStatement = conn.createStatement();
+            ResultSet pridavkyRs = pridavkyStatement.executeQuery(
+                    "SELECT pridavky.ID, pridavky.nazev, pridavky.cena, pridavky.isActive FROM pridavky");
+            while (pridavkyRs.next()) {
+                Pridavek pridavek = new Pridavek().setId(pridavkyRs.getInt("ID"))
+                        .setNazev(pridavkyRs.getString("nazev")).setCena(pridavkyRs.getDouble("cena"))
+                        .setActive(pridavkyRs.getBoolean("isActive"));
+                pridavky.add(pridavek);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            pridavky = null;
+        }
+        return pridavky;
+    }
     @Override
     public boolean save() {
-        // TODO Auto-generated method stub
-        return false;
+        if(this.id <= 0){
+            try (Connection conn = Db.get().getConnection()) {
+                conn.setAutoCommit(false);
+    
+                try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO pridavky (nazev, cena) VALUES (?,?)",
+                        PreparedStatement.RETURN_GENERATED_KEYS)) {
+                    stmt.setString(1, this.getNazev());
+                    stmt.setDouble(2, this.getCena());
+    
+                    if (stmt.executeUpdate() != 1) {
+                        throw new Exception("Nepodaril se zapis pridavku");
+                    }
+    
+                    ResultSet rs = stmt.getGeneratedKeys();
+    
+                    if (rs.next()) {
+                        this.setId(rs.getInt(1));
+                    }
+                    rs.close();
+    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    conn.rollback();
+                    throw e;
+                }
+                conn.commit();
+                return true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+                return false;
+            }
+        } else{
+            try (Connection conn = Db.get().getConnection()) {
+                conn.setAutoCommit(false);
+    
+                try (PreparedStatement stmt = conn.prepareStatement(
+                        "UPDATE pridavky SET pridavky.isActive = ?, pridavky.nazev = ?, pridavky.cena = ? WHERE pridavky.ID = ?")) {
+                    int pom;
+                    if (this.isActive())
+                        pom = 1;
+                    else
+                        pom = 0;
+                    stmt.setInt(1, pom);
+                    stmt.setString(2, this.getNazev());
+                    stmt.setDouble(3, this.getCena());
+    
+                    stmt.setInt(4, this.getId());
+    
+                    if (stmt.executeUpdate() != 1) {
+                        throw new Exception("Nepodařilo se upravit polozku");
+                    }
+    
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    conn.rollback();
+                    System.out.println(e.getMessage());
+                    throw e;
+                }
+                conn.commit();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+
     }
     
 }
