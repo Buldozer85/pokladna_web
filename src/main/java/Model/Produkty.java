@@ -3,7 +3,7 @@ package Model;
 public abstract class Produkty {
 
     private int id;
-    
+
     public int getId() {
         return id;
     }

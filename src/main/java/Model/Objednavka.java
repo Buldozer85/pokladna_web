@@ -11,7 +11,7 @@ import java.util.List;
 import Interfaces.IObjednavka;
 
 public class Objednavka implements IObjednavka {
-private int cisloPolozkyVobjednavce = 0;
+    private int cisloPolozkyVobjednavce = 0;
     private int id;
     private static Double cenaSum = 0.0;
     private Double cena;
@@ -51,19 +51,19 @@ private int cisloPolozkyVobjednavce = 0;
         cenaSum = 0.0;
         if (!objednavka.isEmpty()) {
             for (Polozka polozka : objednavka) {
-                
-              cenaSum +=  polozka.getCena();
 
-              if(!polozka.getPridavky().isEmpty()){
-                  for (Pridavek prid : polozka.getPridavky()) {
-                    cenaSum += prid.getCena();
-                  }
-                  
-              }
+                cenaSum += polozka.getCena();
+
+                if (!polozka.getPridavky().isEmpty()) {
+                    for (Pridavek prid : polozka.getPridavky()) {
+                        cenaSum += prid.getCena();
+                    }
+
+                }
             }
             return cenaSum;
         }
-       
+
         return 0.0;
     }
 
@@ -86,7 +86,6 @@ private int cisloPolozkyVobjednavce = 0;
 
     @Override
     public void load() {
-        // TODO Auto-generated method stub
 
     }
 
@@ -99,7 +98,6 @@ private int cisloPolozkyVobjednavce = 0;
                     "INSERT INTO objednavky (celkovaCena, casObjednavky) VALUES (?,?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
                 stmt.setDouble(1, this.getCena());
-                
 
                 stmt.setString(2, this.getCasObjednavky());
 
@@ -118,8 +116,6 @@ private int cisloPolozkyVobjednavce = 0;
                 conn.rollback();
                 throw e;
             }
-
-           
 
             try (PreparedStatement stmt = conn.prepareStatement(
                     "INSERT INTO polozky_v_objednavce (Objednavka_ID, Polozka_ID, Pridavek_ID, cisloPolozkyVobjednavce) VALUES(?,?,?,?) ",
@@ -157,11 +153,11 @@ private int cisloPolozkyVobjednavce = 0;
             e.printStackTrace();
             return false;
         }
-        
+
     }
 
-    public static List<Objednavka> getAll(){
-        List<Objednavka> objednavky = new ArrayList<>();
+    public static LinkedList<Objednavka> getAll() {
+        LinkedList<Objednavka> objednavky = new LinkedList<>();
 
         try (Connection conn = Db.get().getConnection();
                 Statement objednavkyStmt = conn.createStatement();

@@ -64,4 +64,51 @@ body #objednavka {
   min-height: 450px;
   min-width: 400px;
 }
+
+body #content,
+body #vydejContent {
+  margin-top: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body #content div,
+body #vydejContent div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+body #content div .vydejObjednavku,
+body #vydejContent div .vydejObjednavku {
+  margin-top: 2%;
+  background-color: black;
+  padding: 10px;
+}
+
+body #content div .vydejObjednavku a,
+body #vydejContent div .vydejObjednavku a {
+  background-color: none;
+}
 /*# sourceMappingURL=main.css.map */

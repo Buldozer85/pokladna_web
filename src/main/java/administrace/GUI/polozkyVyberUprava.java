@@ -7,9 +7,7 @@ import javax.swing.JPanel;
 
 import Model.Polozka;
 
-
 import java.awt.Container;
-
 
 import java.awt.GridLayout;
 import java.awt.Dimension;
@@ -53,23 +51,19 @@ public class polozkyVyberUprava extends JFrame {
             new AdministraceRozcesti().setVisible(true);
         });
 
-        
-            
-            for (Polozka p : Polozka.getAllAdmin()) {
+        for (Polozka p : Polozka.getAllAdmin()) {
 
-                b = new JButton(p.getNazev());
+            b = new JButton(p.getNazev());
 
-                b.addActionListener((l) -> {
-                    
+            b.addActionListener((l) -> {
 
-                    upravaFrame = new polozkyUpravaFrame(p);
-                    upravaFrame.setVisible(true);
-                    this.setVisible(false);
-                });
+                upravaFrame = new polozkyUpravaFrame(p);
+                upravaFrame.setVisible(true);
+                this.setVisible(false);
+            });
 
-                obalCely.add(b);
-            }
+            obalCely.add(b);
+        }
 
-       
     }
 }

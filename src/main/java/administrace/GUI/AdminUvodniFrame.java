@@ -3,8 +3,6 @@ package administrace.GUI;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-
-
 public class AdminUvodniFrame extends javax.swing.JFrame {
         /**
          *
@@ -16,7 +14,6 @@ public class AdminUvodniFrame extends javax.swing.JFrame {
         private javax.swing.JButton objednavky;
         private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         private AdministraceRozcesti administraceRozcesti;
-     
 
         public AdminUvodniFrame() {
                 int height = screenSize.height * 2 / 3;
@@ -77,8 +74,7 @@ public class AdminUvodniFrame extends javax.swing.JFrame {
                                                 .addComponent(dvoriNald, javax.swing.GroupLayout.DEFAULT_SIZE, 98,
                                                                 Short.MAX_VALUE)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(objednavky,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 93,
+                                                .addComponent(objednavky, javax.swing.GroupLayout.PREFERRED_SIZE, 93,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(30, 30, 30)
                                                 .addComponent(Administrace, javax.swing.GroupLayout.PREFERRED_SIZE, 106,
@@ -99,9 +95,9 @@ public class AdminUvodniFrame extends javax.swing.JFrame {
                                                 .addContainerGap()));
 
                 objednavky.addActionListener((e) -> {
-                       ObjednavkyFrame of = new ObjednavkyFrame();
-                       of.setVisible(true);
-                       this.setVisible(false);
+                        ObjednavkyFrame of = new ObjednavkyFrame();
+                        of.setVisible(true);
+                        this.setVisible(false);
                 });
 
                 pack();

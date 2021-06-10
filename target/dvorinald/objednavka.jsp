@@ -13,6 +13,8 @@
                         <meta name='viewport' content='width=device-width, initial-scale=1'>
                         <link rel='stylesheet' type='text/css' media='screen' href='style/scss/main.css'>
 
+
+
                     </head>
 
                     <body>
@@ -68,11 +70,13 @@
                                                         <h4>Celková cena:
                                                             <%=request.getAttribute("cena")%>&nbsp;Kč
                                                         </h4>
-                                                        <a href="?dokoncit=1">Dokončit</a>
+                                                        <a id="a" href="?dokoncit=1">Dokončit</a>
+
                             </div>
 
                         </div>
-
+                        <script type="text/javascript" src="js/websocket.js">
+                        </script>
                     </body>
 
                     </html>

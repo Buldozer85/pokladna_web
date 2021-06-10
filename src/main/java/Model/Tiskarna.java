@@ -1,7 +1,5 @@
 package Model;
 
-
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -45,7 +43,6 @@ public class Tiskarna {
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
-          
 
         }
     }

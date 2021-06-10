@@ -30,7 +30,7 @@
                             <%}%>
                     </div>
 
-                    <div>
+                    <div style="text-align: center; margin: auto; margin-top: 10%; ">
 <a href="/dvorinald/objednavka">OK</a>
                     </div>
 

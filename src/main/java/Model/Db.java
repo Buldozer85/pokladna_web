@@ -25,13 +25,13 @@ public class Db {
     private final String serverName = "localhost";
     private final int port = 3306;
     private final String defaultDB = "pokladna";
-    
 
     public Connection getConnection() throws SQLException {
         return getConnection(typDB, serverName, port, defaultDB, "root", "");
     }
 
-    public Connection getConnection(String typDB, String serverName, int port, String defaultDB, String user, String pass) throws SQLException {
+    public Connection getConnection(String typDB, String serverName, int port, String defaultDB, String user,
+            String pass) throws SQLException {
         return DriverManager.getConnection(cs, user, pass);
     }
 

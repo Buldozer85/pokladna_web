@@ -3,7 +3,6 @@ package administrace.GUI;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,12 +15,11 @@ import javax.swing.JTextField;
 
 import Model.Pridavek;
 
-
 public class pridavkyUpravaFrame extends JFrame {
     private Pridavek p1;
     private static final long serialVersionUID = 127860281665570197L;
     private JTextField nazevTextField, cenaTextField;
-    private JButton potvrdVlozeniButton,zpetButton;
+    private JButton potvrdVlozeniButton, zpetButton;
 
     private JCheckBox isActive;
     private JLabel isActiveLabel;
@@ -54,7 +52,7 @@ public class pridavkyUpravaFrame extends JFrame {
 
         potvrdVlozeniButton.addActionListener((e) -> {
             try {
-               
+
                 Pridavek p = new Pridavek().setId(p1.getId()).setNazev(nazevTextField.getText())
                         .setCena(Double.parseDouble(cenaTextField.getText()));
                 if (isActive.isSelected())
@@ -75,7 +73,7 @@ public class pridavkyUpravaFrame extends JFrame {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        
+
         });
 
         potvrdVlozeniButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -83,7 +81,7 @@ public class pridavkyUpravaFrame extends JFrame {
 
         zpetButton.setAlignmentX(CENTER_ALIGNMENT);
         zpetButton.setAlignmentY(CENTER_ALIGNMENT);
-        zpetButton.addActionListener((l)->{
+        zpetButton.addActionListener((l) -> {
             this.setVisible(false);
             new pridavkyVyberUprava().setVisible(true);
         });

@@ -1,6 +1,5 @@
 package administrace.GUI;
 
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,7 +15,6 @@ import javax.swing.JTextField;
 import java.awt.FlowLayout;
 
 import Model.Polozka;
-
 
 public class polozkyUpravaFrame extends JFrame {
     private Polozka p1;
@@ -58,7 +56,7 @@ public class polozkyUpravaFrame extends JFrame {
 
         potvrdVlozeniButton.addActionListener((e) -> {
             try {
-                
+
                 Polozka p = new Polozka().setId(p1.getId()).setNazev(nazevTextField.getText())
                         .setCena(Double.parseDouble(cenaTextField.getText()))
                         .setDruh((String) druhBox.getItemAt(druhBox.getSelectedIndex()));
@@ -85,8 +83,7 @@ public class polozkyUpravaFrame extends JFrame {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-           
-            
+
         });
 
         potvrdVlozeniButton.setAlignmentX(CENTER_ALIGNMENT);
@@ -95,7 +92,7 @@ public class polozkyUpravaFrame extends JFrame {
         zpetButton.setAlignmentX(CENTER_ALIGNMENT);
         zpetButton.setAlignmentY(CENTER_ALIGNMENT);
 
-        zpetButton.addActionListener((l)->{
+        zpetButton.addActionListener((l) -> {
             this.setVisible(false);
             new polozkyVyberUprava().setVisible(true);
         });

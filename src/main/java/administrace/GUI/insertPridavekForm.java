@@ -11,7 +11,6 @@ import javax.swing.JTextField;
 
 import Model.Pridavek;
 
-
 public class insertPridavekForm extends JFrame {
     /**
      *
@@ -36,20 +35,21 @@ public class insertPridavekForm extends JFrame {
 
         potvrdVlozeniButton.addActionListener((e) -> {
             try {
-                if(!nazevTextField.getText().isEmpty() && !cenaTextField.getText().isEmpty()){
-                
-                Pridavek p = new Pridavek().setNazev(nazevTextField.getText())
-                        .setCena(Double.parseDouble(cenaTextField.getText()));
-                if (!p.save()) {
-                    JOptionPane.showMessageDialog(this, "Nepodařilo se zapsat přídavek");
+                if (!nazevTextField.getText().isEmpty() && !cenaTextField.getText().isEmpty()) {
 
+                    Pridavek p = new Pridavek().setNazev(nazevTextField.getText())
+                            .setCena(Double.parseDouble(cenaTextField.getText()));
+                    if (!p.save()) {
+                        JOptionPane.showMessageDialog(this, "Nepodařilo se zapsat přídavek");
+
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "Přídavek: " + nazevTextField.getText() + "Byl úspěšně zapsán");
+                        this.setVisible(false);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Přídavek: " + nazevTextField.getText() + "Byl úspěšně zapsán");
-                    this.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "Nevyplněná pole!");
                 }
-            } else{
-                JOptionPane.showMessageDialog(this, "Nevyplněná pole!");
-            }
             } catch (NumberFormatException ex) {
                 ex.printStackTrace();
             }

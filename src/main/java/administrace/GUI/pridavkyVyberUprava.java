@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 
 import Model.Pridavek;
 
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -45,27 +44,24 @@ public class pridavkyVyberUprava extends JFrame {
         obal.add(obalCely);
         obal.add(zpetButton);
 
-        zpetButton.addActionListener((e)->{
+        zpetButton.addActionListener((e) -> {
             this.setVisible(false);
             new AdministraceRozcesti().setVisible(true);
         });
 
-        
-           
-            for (Pridavek p : Pridavek.getAllAdministrace()) {
+        for (Pridavek p : Pridavek.getAllAdministrace()) {
 
-                b = new JButton(p.getNazev());
+            b = new JButton(p.getNazev());
 
-                b.addActionListener((l) -> {
+            b.addActionListener((l) -> {
 
-                    upravaFrame = new pridavkyUpravaFrame(p);
-                    upravaFrame.setVisible(true);
-                    this.setVisible(false);
-                });
+                upravaFrame = new pridavkyUpravaFrame(p);
+                upravaFrame.setVisible(true);
+                this.setVisible(false);
+            });
 
-                obalCely.add(b);
-            }
+            obalCely.add(b);
+        }
 
-       
     }
 }

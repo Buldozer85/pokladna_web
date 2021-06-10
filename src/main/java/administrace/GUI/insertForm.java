@@ -9,8 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import java.awt.Dimension;
-import java.rmi.Naming;
-
 
 import Model.Polozka;
 
@@ -41,23 +39,22 @@ public class insertForm extends JFrame {
 
         potvrdVlozeniButton.addActionListener((e) -> {
             try {
-                if (!nazevTextField.getText().isEmpty()  && !cenaTextField.getText().isEmpty()) {
-                    
-                
-                Polozka p = new Polozka().setNazev(nazevTextField.getText())
-                        .setCena(Double.parseDouble(cenaTextField.getText()))
-                        .setDruh((String) druhBox.getItemAt(druhBox.getSelectedIndex()));
-                if (!p.save()) {
-                    JOptionPane.showMessageDialog(this, "Nepodařilo se zapsat položku");
+                if (!nazevTextField.getText().isEmpty() && !cenaTextField.getText().isEmpty()) {
 
+                    Polozka p = new Polozka().setNazev(nazevTextField.getText())
+                            .setCena(Double.parseDouble(cenaTextField.getText()))
+                            .setDruh((String) druhBox.getItemAt(druhBox.getSelectedIndex()));
+                    if (!p.save()) {
+                        JOptionPane.showMessageDialog(this, "Nepodařilo se zapsat položku");
+
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "Položka: " + nazevTextField.getText() + "Byla úspěšně zapsána");
+                        this.setVisible(false);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this,
-                            "Položka: " + nazevTextField.getText() + "Byla úspěšně zapsána");
-                    this.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "Nevyplněná pole!");
                 }
-            } else{
-                JOptionPane.showMessageDialog(this, "Nevyplněná pole!"); 
-            }
             } catch (NumberFormatException ex) {
                 ex.printStackTrace();
             }

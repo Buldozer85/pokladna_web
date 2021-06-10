@@ -28,7 +28,7 @@ public class AdministraceRozcesti extends JFrame {
         pridavkyBtn = new JButton("Přídavky administrace");
         vlozeniPolozka = new JButton("Vložení Položky");
         vlozeniPridavek = new JButton("vložení přídavku");
-        
+
         zpetButton = new JButton("Zpět");
 
         FlowLayout fl = new FlowLayout();
@@ -54,21 +54,21 @@ public class AdministraceRozcesti extends JFrame {
             pridavkyVyberUprava.setVisible(true);
         });
 
-        zpetButton.addActionListener((l)->{
+        zpetButton.addActionListener((l) -> {
             this.setVisible(false);
             new AdminUvodniFrame().setVisible(true);
         });
-        vlozeniPolozka.addActionListener((e)->{
+        vlozeniPolozka.addActionListener((e) -> {
             this.setVisible(false);
             insertForm i = new insertForm();
             i.setVisible(true);
 
         });
-        vlozeniPridavek.addActionListener((e)->{
+        vlozeniPridavek.addActionListener((e) -> {
             this.setVisible(false);
             insertPridavekForm i = new insertPridavekForm();
             i.setVisible(true);
-            
+
         });
 
     }

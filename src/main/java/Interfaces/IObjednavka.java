@@ -1,5 +1,5 @@
 package Interfaces;
 
-public interface IObjednavka extends IMVC{
-    
+public interface IObjednavka extends IMVC {
+
 }
