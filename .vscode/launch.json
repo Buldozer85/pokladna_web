@@ -10,27 +10,6 @@
             "request": "launch",
             "mainClass": "administrace.Administrator",
             "projectName": "dvorinald"
-        },
-        {
-            "type": "java",
-            "name": "Launch Hash",
-            "request": "launch",
-            "mainClass": "servlets.Hash",
-            "projectName": "dvorinald"
-        },
-        {
-            "type": "java",
-            "name": "Launch Hash",
-            "request": "launch",
-            "mainClass": "Hash",
-            "projectName": "dvorinald"
-        },
-        {
-            "type": "pwa-chrome",
-            "request": "launch",
-            "name": "Open in chrome",
-            "url": "http://localhost:8080/dvorinald",
-            "webRoot": "${workspaceFolder}"
         }
     ]
 }

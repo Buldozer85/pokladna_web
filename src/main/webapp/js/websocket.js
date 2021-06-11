@@ -12,7 +12,7 @@ function onMessage(event) {
     let objednavka = JSON.parse(event.data);
 
     if (objednavka.action == "add") {
-        console.log(event.data)
+
         printObjednavkaPriprava(objednavka);
     }
     if (objednavka.action == "remove") {
@@ -24,7 +24,7 @@ function onMessage(event) {
         printObjednavkaVydej(objednavka);
     }
     if (objednavka.action == "vyzvednuta") {
-        console.log(event.data)
+
         document.getElementById(objednavka.id).remove();
 
     }
@@ -59,7 +59,7 @@ function VydejObjednavka(element) {
         id: id
 
     }
-    console.log("klik")
+
     ws.send(JSON.stringify(objednavkaAction));
 }
 
@@ -133,7 +133,7 @@ function printObjednavkaVydej(objednavka) {
 if (window.location.pathname.includes("objednavka")) {
     let a = document.querySelector("#a");
     a.onclick = () => {
-        alert("dokonceno")
+
         addObjednavka()
     }
 }
